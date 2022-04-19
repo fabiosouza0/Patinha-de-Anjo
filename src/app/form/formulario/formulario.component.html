@@ -1,94 +1,152 @@
-<form [formGroup]="formCliente" (ngSubmit)="onSubmit()">
-    
-    <div class="form-group">
-        <label for="nome" class="form-label">Nome do cliente</label>
-        <input type="text" class="form-control" name="nome" id="nome" maxlength="255" formControlName="nome">
+<div class="container mt-5 mb-5">
+
+    <h1 class="title">Novo Cliente</h1>
+
+    <div class="p-3 bg-light border">
+
+        <form [formGroup]="formCliente" (ngSubmit)="onSubmit()">
+            
+            <h6 class="text-primary">Dados Pessoais</h6>
+            <hr>
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do cliente</label>
+                <input type="text" class="form-control" name="nome" id="nome" formControlName="nome" maxlength="255">
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="number" class="form-control" name="cpf" id="number" formControlName="cpf" oninput="mascara(this, 'cpf')">
+                </div>
+                <div class="col">
+                    <label for="telefone" class="form-label">Telefone</label>
+                    <input type="number" class="form-control" name="telefone" id="telefone" formControlName="telefone" oninput="mascara(this, 'tel')">
+                </div>
+            </div>
+
+            <h6 class="text-primary">Endereço</h6>
+            <hr>
+
+            <div class="mb-3">
+                <label for="cep" class="form-label">CEP</label>
+                <input type="number" class="form-control" name="cep" id="cep" formControlName="cep" oninput="mascara(this, 'cep')">
+            </div>
+            
+            <div class="mb-3 row">
+                <div class="col-2">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-select" name="estado" id="estado" formControlName="estado">
+                        <option selected hidden value="null">Selecione</option>
+                        <option [ngValue]="1">AC</option>
+                        <option [ngValue]="2">AL</option>
+                        <option [ngValue]="3">AP</option>
+                        <option [ngValue]="4">AM</option>
+                        <option [ngValue]="5">BA</option>
+                        <option [ngValue]="6">CE</option>
+                        <option [ngValue]="7">ES</option>
+                        <option [ngValue]="8">GO</option>
+                        <option [ngValue]="9">MA</option>
+                        <option [ngValue]="10">MT</option>
+                        <option [ngValue]="11">MS</option>
+                        <option [ngValue]="12">MG</option>
+                        <option [ngValue]="13">PA</option>
+                        <option [ngValue]="14">PB</option>
+                        <option [ngValue]="15">PR</option>
+                        <option [ngValue]="16">PE</option>
+                        <option [ngValue]="17">PI</option>
+                        <option [ngValue]="18">RJ</option>
+                        <option [ngValue]="19">RN</option>
+                        <option [ngValue]="20">RS</option>
+                        <option [ngValue]="21">RO</option>
+                        <option [ngValue]="22">RR</option>
+                        <option [ngValue]="23">SC</option>
+                        <option [ngValue]="24">SP</option>
+                        <option [ngValue]="25">SE</option>
+                        <option [ngValue]="26">TO</option>
+                        <option [ngValue]="27">DF</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" name="cidade" id="cidade" formControlName="cidade" maxlength="255">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="logradouro" class="form-label">Logradouro</label>
+                    <input type="text" class="form-control" name="logradouro" id="logradouro" formControlName="logradouro" maxlength="255">
+                </div>
+                <div class="col">
+                    <label for="bairro" class="form-label">Bairro</label>
+                    <input type="text" class="form-control" name="bairro" id="bairro" formControlName="bairro" maxlength="255">
+                </div>
+            </div>
+            <div class="mb-3">
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="numero" class="form-label">Número</label>
+                    <input type="text" class="form-control" name="numero" id="numero" formControlName="numero" maxlength="5">
+                </div>
+                <div class="col">
+                    <label for="complemento" class="form-label">Complemento <span class="text-muted">(opcional)</span></label>
+                    <input type="text" class="form-control" name="complemento" id="complemento" formControlName="complemento" maxlength="255">
+                </div>
+            </div>
+
+            <h6 class="text-primary">Dados do Pet</h6>
+            <hr>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="petNome" class="form-label">Nome do Pet</label>
+                    <input type="text" class="form-control" name="petNome" id="petNome" formControlName="petNome" maxlength="255">
+                </div>
+                <div class="col">
+                    <label for="petGenero" class="form-label">Gênero</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="petGenero" id="petGenero0" [value]="1" formControlName="petGenero">
+                        <label for="petGenero0" class="form-check-label">Masculino</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="petGenero" id="petGenero1" [value]="2" formControlName="petGenero">
+                        <label for="petGenero1" class="form-check-label">Feminino</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="petEspecie" class="form-label">Espécie</label>
+                    <select class="form-select" name="petEspecie" id="petEspecie" formControlName="petEspecie">
+                        <option selected hidden value="null">Selecione</option>
+                        <option [ngValue]="1">Cachorro</option>
+                        <option [ngValue]="2">Gato</option>
+                        <option [ngValue]="3">Ave</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="petRaca" class="form-label">Raça</label>
+                    <input type="text" class="form-control" name="petRaca" id="petRaca" formControlName="petRaca" maxlength="100">
+                </div>
+                <div class="col">
+                    <label for="petPeso" class="form-label">Peso <span class="text-muted">(opcional)</span></label>
+                    <input type="number" class="form-control" name="petPeso" id="petPeso" formControlName="petPeso" maxlength="100">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="observacao" class="form-label">Observação <span class="text-muted">(opcional)</span></label>
+                <textarea class="form-control" name="observacao" id="observacao" rows="3" formControlName="observacao"></textarea>
+            </div>
+
+            <button type="reset" class="btn btn-outline-secondary me-4">Resetar</button>
+            <button type="submit" class="col btn btn-primary">Enviar</button>
+                
+        </form>
+
     </div>
-
-    <div class="form-group">
-        <label for="cpf" class="form-label">CPF</label>
-        <input type="number" class="form-control" name="cpf" id="number" formControlName="cpf" formControlName="cpf" oninput="mascara(this, 'cpf')">
-    </div>
-
-    <div class="form-group">
-        <label for="telefone" class="form-label">Telefone</label>
-        <input type="number" class="form-control" name="telefone" id="telefone" formControlName="telefone" oninput="mascara(this, 'tel')">
-    </div>
-
-    <div class="form-group">
-        <label for="cep" class="form-label">CEP</label>
-        <input type="number" class="form-control" name="cep" id="cep" formControlName="cep" oninput="mascara(this, 'cep')">
-    </div>
-
-    <div class="form-group">
-        <label for="estado" class="form-label">Estado</label>
-        <input type="text" class="form-control" name="estado" id="estado" formControlName="estado" maxlength="255">
-    </div>
-
-    <div class="form-group">
-        <label for="cidade" class="form-label">Cidade</label>
-        <input type="text" class="form-control" name="cidade" id="cidade" formControlName="cidade" maxlength="255">
-    </div>
-
-    <div class="form-group">
-        <label for="bairro" class="form-label">Bairro</label>
-        <input type="text" class="form-control" name="bairro" id="bairro" formControlName="bairro" maxlength="255">
-    </div>
-
-    <div class="form-group">
-        <label for="logradouro" class="form-label">Logradouro</label>
-        <input type="text" class="form-control" name="logradouro" id="logradouro" formControlName="logradouro" maxlength="255">
-    </div>
-
-    <div class="form-group">
-        <label for="numero" class="form-label">Número</label>
-        <input type="number" class="form-control" name="numero" id="numero" formControlName="numero" maxlength="5">
-    </div>
-    
-    <div class="form-group">
-        <label for="complemento" class="form-label">Complemento</label>
-        <input type="complemento" class="form-control" name="complemento" id="complemento" formControlName="complemento" maxlength="255">
-    </div>
-
-    <div class="form-group">
-        <label for="petNome" class="form-label">Nome do pet</label>
-        <input type="text" class="form-control" name="petNome" id="petNome" formControlName="petNome" maxlength="255">
-    </div>
-
-    <div class="form-group">
-        <label for="petGenero" class="form-label">Gênero</label>
-        <div>
-            <input class="form-check-input" type="radio" name="petGenero" id="petMasculino" [value]="1" formControlName="petGenero">
-            <label for="petMasculino" class="form-check-label">Masculino</label>
-        </div>
-        <div>
-            <input class="form-check-input" type="radio" name="petGenero" id="petFeminino" [value]="2" formControlName="petGenero">
-            <label for="petFeminino" class=""form-check-label>Feminino</label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="petEspecie" class="form-label">Espécie</label>
-        <input type="text" class="form-control" name="petEspecie" id="petEspecie" formControlName="petEspecie" maxlength="100">
-    </div>
-
-    <div class="form-group">
-        <label for="petRaca" class="form-label">Raça</label>
-        <input type="text" class="form-control" name="petRaca" id="petRaca" formControlName="petRaca" maxlength="100">
-    </div>
-
-    <div class="form-group">
-        <label for="petPeso" class="form-label">Peso</label>
-        <input type="number" class="form-control" name="petPeso" id="petPeso" formControlName="petPeso" maxlength="100">
-    </div>
-
-    <div class="form-group">
-        <label for="observacao" class="form-label">Observação</label>
-        <textarea class="form-control" rows="3" name="observacao" id="observacao" formControlName="observacao"></textarea>
-    </div>
-
-    <button type="reset" class="btn btn-primary">Resetar</button>
-    <button type="submit" class="btn btn-primary">Enviar</button>
-
-
-</form>
+</div>
