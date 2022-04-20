@@ -1,4 +1,4 @@
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5" style="max-width:540px">
 
     <h1 class="title">Novo Cliente</h1>
 
@@ -11,15 +11,16 @@
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do cliente</label>
-                <input type="text" class="form-control" name="nome" id="nome" formControlName="nome" maxlength="255">
+                <input type="text" class="form-control" name="nome" id="nome" formControlName="nome" maxlength="255" required>
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
 
             <div class="mb-3 row">
-                <div class="col">
+                <div class="col-sm">
                     <label for="cpf" class="form-label">CPF</label>
                     <input type="number" class="form-control" name="cpf" id="number" formControlName="cpf" oninput="mascara(this, 'cpf')">
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="telefone" class="form-label">Telefone</label>
                     <input type="number" class="form-control" name="telefone" id="telefone" formControlName="telefone" oninput="mascara(this, 'tel')">
                 </div>
@@ -34,7 +35,7 @@
             </div>
             
             <div class="mb-3 row">
-                <div class="col-2">
+                <div class="col-sm-4">
                     <label for="estado" class="form-label">Estado</label>
                     <select class="form-select" name="estado" id="estado" formControlName="estado">
                         <option selected hidden value="null">Selecione</option>
@@ -67,18 +68,18 @@
                         <option [ngValue]="27">DF</option>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="cidade" class="form-label">Cidade</label>
                     <input type="text" class="form-control" name="cidade" id="cidade" formControlName="cidade" maxlength="255">
                 </div>
             </div>
 
             <div class="mb-3 row">
-                <div class="col">
+                <div class="col-sm">
                     <label for="logradouro" class="form-label">Logradouro</label>
                     <input type="text" class="form-control" name="logradouro" id="logradouro" formControlName="logradouro" maxlength="255">
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="bairro" class="form-label">Bairro</label>
                     <input type="text" class="form-control" name="bairro" id="bairro" formControlName="bairro" maxlength="255">
                 </div>
@@ -87,11 +88,11 @@
             </div>
 
             <div class="mb-3 row">
-                <div class="col">
+                <div class="col-sm">
                     <label for="numero" class="form-label">Número</label>
                     <input type="text" class="form-control" name="numero" id="numero" formControlName="numero" maxlength="5">
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="complemento" class="form-label">Complemento <span class="text-muted">(opcional)</span></label>
                     <input type="text" class="form-control" name="complemento" id="complemento" formControlName="complemento" maxlength="255">
                 </div>
@@ -101,11 +102,11 @@
             <hr>
 
             <div class="mb-3 row">
-                <div class="col">
+                <div class="col-sm">
                     <label for="petNome" class="form-label">Nome do Pet</label>
                     <input type="text" class="form-control" name="petNome" id="petNome" formControlName="petNome" maxlength="255">
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="petGenero" class="form-label">Gênero</label>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="petGenero" id="petGenero0" [value]="1" formControlName="petGenero">
@@ -119,7 +120,7 @@
             </div>
 
             <div class="mb-3 row">
-                <div class="col">
+                <div class="col-sm">
                     <label for="petEspecie" class="form-label">Espécie</label>
                     <select class="form-select" name="petEspecie" id="petEspecie" formControlName="petEspecie">
                         <option selected hidden value="null">Selecione</option>
@@ -128,11 +129,11 @@
                         <option [ngValue]="3">Ave</option>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="petRaca" class="form-label">Raça</label>
                     <input type="text" class="form-control" name="petRaca" id="petRaca" formControlName="petRaca" maxlength="100">
                 </div>
-                <div class="col">
+                <div class="col-sm">
                     <label for="petPeso" class="form-label">Peso <span class="text-muted">(opcional)</span></label>
                     <input type="number" class="form-control" name="petPeso" id="petPeso" formControlName="petPeso" maxlength="100">
                 </div>
