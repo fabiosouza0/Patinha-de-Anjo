@@ -12,7 +12,6 @@ export class FormularioComponent implements OnInit {
   
   formCliente: FormGroup;
   
-
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -67,13 +66,12 @@ export class FormularioComponent implements OnInit {
                 this.formCliente.controls['logradouro'].setValue(Object(data)['logradouro']);
                 this.formCliente.controls['bairro'].setValue(Object(data)['bairro']);
               } else {
-                console.log("erro");
-                console.log(this.http)
+                console.log("CEP inválido.");
               }
             },
 
             error: (e) => {
-              console.log('erro');
+              console.log('Não foi possível acessar a API.');
             }
             
           })

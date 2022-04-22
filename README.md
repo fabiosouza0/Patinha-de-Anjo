@@ -1,27 +1,15 @@
-# PatinhaDeAnjo
+# Patinha de Anjo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
+Este projeto foi gerado com Angular [CLI v13.3.2](https://github.com/angular/angular-cli) e foi utilizado o [Bootstrap v5.1.3](https://getbootstrap.com) para customização visual.
 
-## Development server
+O projeto contém apenas um formulário para o cadastro de um novo cliente de um Pet Shop e ao enviar irá aparecer as informações no Console.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Como utilizar?
+1. Instale a versão mais recente do [Node.js](https://nodejs.org/en/).
+2. Abra um CMD e utilize o comando `npm install -g @angular/cli`.
+3. Faça download dos arquivos deste projeto.
+4. Navegue até a pasta do projeto no CMD e utilize o comando `npm install` para instalar todas as dependências.
+5. Ainda na pasta do projeto, utilize o comando `ng serve --open` no CMD para inicializar o projeto.
 
-## Code scaffolding
+## Membros do projeto.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
