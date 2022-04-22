@@ -9,8 +9,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent implements OnInit {
-
+  
   formCliente: FormGroup;
+  
 
   constructor(private http: HttpClient) { }
 
@@ -67,6 +68,7 @@ export class FormularioComponent implements OnInit {
                 this.formCliente.controls['bairro'].setValue(Object(data)['bairro']);
               } else {
                 console.log("erro");
+                console.log(this.http)
               }
             },
 
