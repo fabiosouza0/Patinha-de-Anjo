@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormularioComponent } from './form/formulario/formulario.component';
 
+import { NgxMaskModule } from 'ngx-mask';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +17,11 @@ import { FormularioComponent } from './form/formulario/formulario.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: false // ao salvar, mantém a máscara.
+    }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

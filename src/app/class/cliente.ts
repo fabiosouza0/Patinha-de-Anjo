@@ -1,16 +1,16 @@
 export class Cliente {
     "nome":string;
-    "cpf":number;
-    "telefone":number;
-    "cep":number;
+    "cpf":string;
+    "telefone":string;
+    "cep":string;
     "estado":string;
     "cidade":string;
-    "bairro":string;
     "logradouro":string;
+    "bairro":string;
     "numero":number;
     "complemento":string;
     "petNome":string;
-    "petGenero":string;
+    "petGenero":number;
     "petEspecie":string;
     "petRaca":string;
     "petPeso":number;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Cliente } from '../../class/cliente';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario',
@@ -11,7 +12,7 @@ export class FormularioComponent implements OnInit {
 
   formCliente: FormGroup;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.createForm(new Cliente());
@@ -19,23 +20,65 @@ export class FormularioComponent implements OnInit {
 
   createForm(cliente:Cliente) {
     this.formCliente = new FormGroup({
-      nome: new FormControl(cliente.nome),
-      cpf: new FormControl(cliente.cpf),
-      telefone: new FormControl(cliente.telefone),
-      cep: new FormControl(cliente.cep),
-      estado: new FormControl(cliente.estado),
-      cidade: new FormControl(cliente.cidade),
-      bairro: new FormControl(cliente.bairro),
-      logradouro: new FormControl(cliente.logradouro),
-      numero: new FormControl(cliente.numero),
-      complemento: new FormControl(cliente.complemento),
-      petNome: new FormControl(cliente.petNome),
-      petGenero: new FormControl(cliente.petGenero),
-      petEspecie: new FormControl(cliente.petEspecie),
-      petRaca: new FormControl(cliente.petRaca),
+      nome: new FormControl(cliente.nome, [Validators.required, Validators.pattern("^[a-zA-Z \u00C0-\u00FF]*$"), Validators.maxLength(255)]),
+      cpf: new FormControl(cliente.cpf, [Validators.required]),
+      telefone: new FormControl(cliente.telefone, [Validators.required]),
+      cep: new FormControl(cliente.cep, [Validators.required]),
+      estado: new FormControl(cliente.estado, [Validators.required]),
+      cidade: new FormControl(cliente.cidade, [Validators.required, Validators.pattern("^[a-zA-Z \u00C0-\u00FF]*$"), Validators.maxLength(255)]),
+      logradouro: new FormControl(cliente.logradouro, [Validators.required, Validators.maxLength(255)]),
+      bairro: new FormControl(cliente.bairro, [Validators.required, Validators.maxLength(255)]),
+      numero: new FormControl(cliente.numero, [Validators.required]),
+      complemento: new FormControl(cliente.complemento, [Validators.maxLength(255)]),
+      petNome: new FormControl(cliente.petNome, [Validators.required, Validators.maxLength(255)]),
+      petGenero: new FormControl(cliente.petGenero, [Validators.required]),
+      petEspecie: new FormControl(cliente.petEspecie, [Validators.required]),
+      petRaca: new FormControl(cliente.petRaca, [Validators.required, Validators.pattern("^[a-zA-Z \u00C0-\u00FF]*$"), Validators.maxLength(255)]),
       petPeso: new FormControl(cliente.petPeso),
-      observacao: new FormControl(cliente.observacao)
-    })
+      observacao: new FormControl(cliente.observacao, [Validators.maxLength(255)])
+
+    }, {updateOn: 'blur'})
+  }
+
+  consultaCep(cep:string) {
+
+    // Verifica se campo cep possui valor informado.
+    if (cep !== '' && cep !== null) {
+
+      // 'cep' somente com dígitos.
+      cep = cep.replace(/\D/g, '');
+
+      // Expressão regular para validar o CEP.
+      const validaCep = /^[0-9]{8}$/;
+
+      // Valida o formato do CEP.
+      if (validaCep.test(cep)) {
+
+        this.http
+          .get(`https://viacep.com.br/ws/${cep}/json`)
+          .subscribe({
+
+            next: (data) => {
+
+              if (!data.hasOwnProperty('erro')) {
+                this.formCliente.controls['estado'].setValue(Object(data)['uf']);
+                this.formCliente.controls['cidade'].setValue(Object(data)['localidade']);
+                this.formCliente.controls['logradouro'].setValue(Object(data)['logradouro']);
+                this.formCliente.controls['bairro'].setValue(Object(data)['bairro']);
+              } else {
+                console.log("erro");
+              }
+            },
+
+            error: (e) => {
+              console.log('erro');
+            }
+            
+          })
+
+      }
+    }
+
   }
 
   onSubmit() {

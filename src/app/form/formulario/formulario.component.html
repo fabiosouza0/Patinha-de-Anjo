@@ -11,18 +11,36 @@
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do cliente</label>
-                <input type="text" class="form-control" name="nome" id="nome" formControlName="nome" maxlength="255" required>
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                <input type="text" class="form-control" id="nome" formControlName="nome" autocomplete="off">
+                <small class="form-text text-danger" *ngIf="formCliente.controls['nome'].errors && (formCliente.controls['nome'].dirty || formCliente.controls['nome'].touched)">
+                    {{
+                        formCliente.controls['nome'].errors.hasOwnProperty('required') ? 'Informe o nome do cliente.' : 
+                        formCliente.controls['nome'].errors.hasOwnProperty('pattern') ? 'Deve conter apenas letras.' :
+                        formCliente.controls['nome'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : ''
+                    }}
+                </small>
             </div>
 
             <div class="mb-3 row">
                 <div class="col-sm">
                     <label for="cpf" class="form-label">CPF</label>
-                    <input type="number" class="form-control" name="cpf" id="number" formControlName="cpf" oninput="mascara(this, 'cpf')">
+                    <input type="text" class="form-control" id="cpf" formControlName="cpf" mask="000.000.000-00" [showMaskTyped]="true" [dropSpecialCharacters]="true" autocomplete="off">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['cpf'].errors && (formCliente.controls['cpf'].dirty || formCliente.controls['cpf'].touched)">
+                        {{
+                            formCliente.controls['cpf'].errors.hasOwnProperty('required') ? 'Informe o CPF do cliente.' :
+                            formCliente.controls['cpf'].errors.hasOwnProperty('mask') ? 'CPF inválido.' : ''
+                        }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="telefone" class="form-label">Telefone</label>
-                    <input type="number" class="form-control" name="telefone" id="telefone" formControlName="telefone" oninput="mascara(this, 'tel')">
+                    <input type="text" class="form-control" id="telefone" formControlName="telefone" prefix="+55 " mask="(00) 0000-0000||(00) 00000-0000" [showMaskTyped]="true" [dropSpecialCharacters]="true">
+                    <small class="from-text text-danger" *ngIf="formCliente.controls['telefone'].errors && (formCliente.controls['telefone'].dirty || formCliente.controls['telefone'].touched)">
+                        {{
+                            formCliente.controls['telefone'].errors.hasOwnProperty('required') ? 'Informe o telefone do cliente.' :
+                            formCliente.controls['telefone'].errors.hasOwnProperty('mask') ? 'Telefone inválido.' : ''
+                        }}
+                    </small>
                 </div>
             </div>
 
@@ -31,70 +49,104 @@
 
             <div class="mb-3">
                 <label for="cep" class="form-label">CEP</label>
-                <input type="number" class="form-control" name="cep" id="cep" formControlName="cep" oninput="mascara(this, 'cep')">
+                <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" [showMaskTyped]="true" [dropSpecialCharacters]="true" (ngModelChange)="consultaCep($event)">
+                <small class="form-text text-danger" *ngIf="formCliente.controls['cep'].errors && (formCliente.controls['cep'].dirty || formCliente.controls['cep'].touched)">
+                    {{
+                        formCliente.controls['cep'].errors.hasOwnProperty('required') ? 'Informe o CEP do cliente.' :
+                        formCliente.controls['cep'].errors.hasOwnProperty('mask') ? 'CEP inválido.' : ''
+                    }}
+                </small>
             </div>
             
             <div class="mb-3 row">
                 <div class="col-sm-4">
                     <label for="estado" class="form-label">Estado</label>
-                    <select class="form-select" name="estado" id="estado" formControlName="estado">
+                    <select class="form-select" id="estado" formControlName="estado">
                         <option selected hidden value="null">Selecione</option>
-                        <option [ngValue]="1">AC</option>
-                        <option [ngValue]="2">AL</option>
-                        <option [ngValue]="3">AP</option>
-                        <option [ngValue]="4">AM</option>
-                        <option [ngValue]="5">BA</option>
-                        <option [ngValue]="6">CE</option>
-                        <option [ngValue]="7">ES</option>
-                        <option [ngValue]="8">GO</option>
-                        <option [ngValue]="9">MA</option>
-                        <option [ngValue]="10">MT</option>
-                        <option [ngValue]="11">MS</option>
-                        <option [ngValue]="12">MG</option>
-                        <option [ngValue]="13">PA</option>
-                        <option [ngValue]="14">PB</option>
-                        <option [ngValue]="15">PR</option>
-                        <option [ngValue]="16">PE</option>
-                        <option [ngValue]="17">PI</option>
-                        <option [ngValue]="18">RJ</option>
-                        <option [ngValue]="19">RN</option>
-                        <option [ngValue]="20">RS</option>
-                        <option [ngValue]="21">RO</option>
-                        <option [ngValue]="22">RR</option>
-                        <option [ngValue]="23">SC</option>
-                        <option [ngValue]="24">SP</option>
-                        <option [ngValue]="25">SE</option>
-                        <option [ngValue]="26">TO</option>
-                        <option [ngValue]="27">DF</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="ES">ES</option>
+                        <option value="DF">DF</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MT">MT</option>
+                        <option value="MS">MS</option>
+                        <option value="MG">MG</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PR">PR</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
                     </select>
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['estado'].errors && (formCliente.controls['estado'].dirty || formCliente.controls['estado'].touched)">
+                        {{
+                            formCliente.controls['estado'].errors.hasOwnProperty('required') ? 'Informe o estado.' : ''
+                        }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="cidade" class="form-label">Cidade</label>
-                    <input type="text" class="form-control" name="cidade" id="cidade" formControlName="cidade" maxlength="255">
+                    <input type="text" class="form-control" id="cidade" formControlName="cidade">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['cidade'].errors && (formCliente.controls['cidade'].dirty || formCliente.controls['cidade'].touched)">
+                        {{
+                            formCliente.controls['cidade'].errors.hasOwnProperty('required') ? 'Informe a cidade.' :
+                            formCliente.controls['cidade'].errors.hasOwnProperty('pattern') ? 'Deve conter apenas letras.' :
+                            formCliente.controls['cidade'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : ''
+                        }}
+                    </small>
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <div class="col-sm">
                     <label for="logradouro" class="form-label">Logradouro</label>
-                    <input type="text" class="form-control" name="logradouro" id="logradouro" formControlName="logradouro" maxlength="255">
+                    <input type="text" class="form-control" id="logradouro" formControlName="logradouro">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['logradouro'].errors && (formCliente.controls['logradouro'].dirty || formCliente.controls['logradouro'].touched)">
+                        {{
+                            formCliente.controls['logradouro'].errors.hasOwnProperty('required') ? 'Informe o logradouro.' :
+                            formCliente.controls['logradouro'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : ''
+                        }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="bairro" class="form-label">Bairro</label>
-                    <input type="text" class="form-control" name="bairro" id="bairro" formControlName="bairro" maxlength="255">
+                    <input type="text" class="form-control" id="bairro" formControlName="bairro">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['bairro'].errors && (formCliente.controls['bairro'].dirty || formCliente.controls['bairro'].touched)">
+                        {{
+                            formCliente.controls['bairro'].errors.hasOwnProperty('required') ? 'Informe o bairro.' :
+                            formCliente.controls['bairro'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : ''
+                        }}
+                    </small>
                 </div>
-            </div>
-            <div class="mb-3">
             </div>
 
             <div class="mb-3 row">
                 <div class="col-sm">
                     <label for="numero" class="form-label">Número</label>
-                    <input type="text" class="form-control" name="numero" id="numero" formControlName="numero" maxlength="5">
+                    <input type="text" class="form-control" id="numero" formControlName="numero" mask="99999">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['numero'].errors && (formCliente.controls['numero'].dirty || formCliente.controls['numero'].touched)">
+                        {{ formCliente.controls['numero'].errors.hasOwnProperty('required') ? 'Informe o número.' : '' }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="complemento" class="form-label">Complemento <span class="text-muted">(opcional)</span></label>
-                    <input type="text" class="form-control" name="complemento" id="complemento" formControlName="complemento" maxlength="255">
+                    <input type="text" class="form-control" id="complemento" formControlName="complemento">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['complemento'].errors && (formCliente.controls['complemento'].dirty || formCliente.controls['complemento'].touched)">
+                        {{ formCliente.controls['complemento'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : '' }}
+                    </small>
                 </div>
             </div>
 
@@ -104,50 +156,71 @@
             <div class="mb-3 row">
                 <div class="col-sm">
                     <label for="petNome" class="form-label">Nome do Pet</label>
-                    <input type="text" class="form-control" name="petNome" id="petNome" formControlName="petNome" maxlength="255">
+                    <input type="text" class="form-control" id="petNome" formControlName="petNome">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['petNome'].errors && (formCliente.controls['petNome'].dirty || formCliente.controls['petNome'].touched)">
+                        {{
+                            formCliente.controls['petNome'].errors.hasOwnProperty('required') ? 'Informe o nome do pet.' :
+                            formCliente.controls['petNome'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : ''
+                        }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="petGenero" class="form-label">Gênero</label>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="petGenero" id="petGenero0" [value]="1" formControlName="petGenero">
-                        <label for="petGenero0" class="form-check-label">Masculino</label>
+                        <input type="radio" class="form-check-input" id="petGenero1" [value]="1" formControlName="petGenero">
+                        <label for="petGenero1" class="form-check-label">Masculino</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="petGenero" id="petGenero1" [value]="2" formControlName="petGenero">
-                        <label for="petGenero1" class="form-check-label">Feminino</label>
+                        <input type="radio" class="form-check-input"id="petGenero2" [value]="2" formControlName="petGenero">
+                        <label for="petGenero2" class="form-check-label">Feminino</label>
                     </div>
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['petGenero'].errors && (formCliente.controls['petGenero'].dirty || formCliente.controls['petGenero'].touched)">
+                        {{ formCliente.controls['petGenero'].errors.hasOwnProperty('required') ? 'Informe o gênero do pet.' : '' }}
+                    </small>
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <div class="col-sm">
                     <label for="petEspecie" class="form-label">Espécie</label>
-                    <select class="form-select" name="petEspecie" id="petEspecie" formControlName="petEspecie">
+                    <select class="form-select" id="petEspecie" formControlName="petEspecie">
                         <option selected hidden value="null">Selecione</option>
-                        <option [ngValue]="1">Cachorro</option>
-                        <option [ngValue]="2">Gato</option>
-                        <option [ngValue]="3">Ave</option>
+                        <option value="Cachorro">Cachorro</option>
+                        <option value="Gato">Gato</option>
+                        <option value="Ave">Ave</option>
                     </select>
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['petEspecie'].errors && (formCliente.controls['petEspecie'].dirty || formCliente.controls['petEspecie'].touched)">
+                        {{ formCliente.controls['petEspecie'].errors.hasOwnProperty('required') ? 'Informe a espécie.' : '' }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="petRaca" class="form-label">Raça</label>
-                    <input type="text" class="form-control" name="petRaca" id="petRaca" formControlName="petRaca" maxlength="100">
+                    <input type="text" class="form-control" id="petRaca" formControlName="petRaca">
+                    <small class="form-text text-danger" *ngIf="formCliente.controls['petRaca'].errors && (formCliente.controls['petRaca'].dirty || formCliente.controls['petRaca'].touched)">
+                        {{
+                            formCliente.controls['petRaca'].errors.hasOwnProperty('required') ? 'Informe a raça.' : 
+                            formCliente.controls['petRaca'].errors.hasOwnProperty('pattern') ? 'Deve conter apenas letras.' :
+                            formCliente.controls['petRaca'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : ''
+                        }}
+                    </small>
                 </div>
                 <div class="col-sm">
                     <label for="petPeso" class="form-label">Peso <span class="text-muted">(opcional)</span></label>
-                    <input type="number" class="form-control" name="petPeso" id="petPeso" formControlName="petPeso" maxlength="100">
+                    <input type="text" class="form-control" id="petPeso" formControlName="petPeso" [allowNegativeNumbers]="false" mask="separator.1" thousandSeparator="." separatorLimit="999">
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="observacao" class="form-label">Observação <span class="text-muted">(opcional)</span></label>
-                <textarea class="form-control" name="observacao" id="observacao" rows="3" formControlName="observacao"></textarea>
+                <textarea class="form-control" id="observacao" rows="3" formControlName="observacao"></textarea>
+                <small class="form-text text-danger" *ngIf="formCliente.controls['observacao'].errors && (formCliente.controls['observacao'].dirty || formCliente.controls['observacao'].touched)">
+                    {{ formCliente.controls['observacao'].errors.hasOwnProperty('maxlength') ? 'Deve conter no máximo 255 caracteres.' : '' }}
+                </small>
             </div>
 
             <button type="reset" class="btn btn-outline-secondary me-4">Resetar</button>
             <button type="submit" class="col btn btn-primary">Enviar</button>
                 
         </form>
-
     </div>
 </div>
