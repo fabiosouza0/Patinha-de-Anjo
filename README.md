@@ -12,7 +12,11 @@ O projeto contém apenas um formulário para o cadastro de um novo cliente de um
 5. Ainda na pasta do projeto, utilize o comando `ng serve --open` no CMD para inicializar o projeto.
 
 ## Membros do projeto.
+
 Nome/RA
+
 Fábio Santarosa de Souza            202202348601
+
 Hélder Augusto Gonçalves Ferreira   202109045806
+
 Ingrid Lopes de Souza               202108461491
