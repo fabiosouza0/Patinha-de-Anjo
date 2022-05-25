@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cliente } from '../../class/cliente';
+import { Cliente } from '../class/cliente';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-formulario',
@@ -9,13 +10,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent implements OnInit {
+
+  sub: any;
   
   formCliente: FormGroup;
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.createForm(new Cliente());
+
+    this.sub = this.route
+      .data
+      .subscribe(v => console.log(v));
   }
 
   createForm(cliente:Cliente) {
