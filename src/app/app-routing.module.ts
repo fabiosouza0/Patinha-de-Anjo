@@ -7,18 +7,18 @@ const routes: Routes = [
 
   {
     path: 'cliente',
-    component: ClienteComponent,
+    component: ClienteComponent
   },
 
   {
-    path: 'formulario',
+    path: 'cliente/form',
     component: FormularioComponent
   },
 
   {
-    path: 'formulario/:id',
+    path: 'cliente/form/:id',
     component: FormularioComponent,
-    data: { some_data: 'some_value'}
+    data: { some_data: 'some_value' }
   },
 
   // Este abaixo irá redirecionar qualquer caminho não listado acima para o 'cliente'.
@@ -27,7 +27,7 @@ const routes: Routes = [
     redirectTo: 'cliente',
     pathMatch: 'full'
   }
-  
+
 ];
 
 @NgModule({
