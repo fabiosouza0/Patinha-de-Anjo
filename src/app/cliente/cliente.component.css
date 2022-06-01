@@ -20,7 +20,8 @@ table tbody td, table thead tr {
 }
 
 button {
-    width: 91px !important;
+    width: 96px !important;
+    white-space: nowrap;
 }
 
 .table_limit {
