@@ -1,11 +1,32 @@
 table {
     border-collapse: separate;
-    border-spacing: 0;
+    border-spacing: 0
 }
 
 table thead th {
     position: sticky;
-    top: 0;
-    border-bottom: 2px solid black;
-    border-bottom-color: black;
+    top: 0 !important;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+table tbody tr {
+    cursor: pointer;
+}
+
+table tbody td, table thead tr {
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+button {
+    width: 91px !important;
+}
+
+.table_limit {
+    height: calc(100vh - 214px);
+}
+
+.empty {
+    cursor: default;
 }

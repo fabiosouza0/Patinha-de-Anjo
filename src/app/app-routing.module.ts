@@ -11,14 +11,13 @@ const routes: Routes = [
   },
 
   {
-    path: 'cliente/form',
+    path: 'cliente/novo',
     component: FormularioComponent
   },
 
   {
-    path: 'cliente/form/:id',
-    component: FormularioComponent,
-    data: { some_data: 'some_value' }
+    path: 'cliente/:id',
+    component: FormularioComponent
   },
 
   // Este abaixo irá redirecionar qualquer caminho não listado acima para o 'cliente'.

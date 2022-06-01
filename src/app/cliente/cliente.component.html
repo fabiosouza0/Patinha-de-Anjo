@@ -1,30 +1,60 @@
 <div class="container mt-5 mb-5">
 
     <h1 class="title">Lista de Clientes</h1>
-    
+
     <div class="mb-2">
-        <button type="button" class="btn btn-primary me-4"><i class="bi bi-plus-lg"></i> Novo</button>
-        <button type="button" class="btn btn-warning me-4"><i class="bi bi-pencil-fill"> Editar</i></button>
-        <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash-fill"> Excluir</i></button>
+        <button type="button" class="btn btn-primary me-4" [routerLink]="['/cliente/novo']"><i class="bi bi-plus-lg"></i> Novo</button>
+        <button type="button" class="btn me-4" [ngClass]="{'btn-warning': this.data_selected.hasOwnProperty('id')}" [disabled]="!this.data_selected.hasOwnProperty('id')" [routerLink]="['/cliente/', this.data_selected.id]"><i class="bi bi-pencil-fill"></i> Editar</button>
+        <button type="button" class="btn me-4" [ngClass]="{'btn-danger': this.data_selected.hasOwnProperty('id')}" [disabled]="!this.data_selected.hasOwnProperty('id')" data-bs-toggle="modal" data-bs-target="#modal_delete"><i class="bi bi-trash-fill"></i> Excluir</button>
     </div>
 
-    <div class="bg-light border table-responsive" style="height: calc(100vh - 214px)">
+    <div class="bg-light border table-responsive table_limit">
 
-        <table class="table table-striped table-bordered table-hover table-sm">
+        <table class="table table-striped table-bordered table-sm" [ngClass]="{'table-hover': this.data.length}">
 
             <thead class="table-light">
                 <tr>
-                    <th scope="col" *ngFor="let key of data_keys">{{ key }}</th>
+                    <th scope="col" *ngFor="let key of data_keys">{{ key.display }}</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr *ngFor="let item of data" (click)="select(item)">
-                    <td *ngFor="let key of data_keys">{{ item[key] }}</td>
+
+                <tr *ngIf="this.data.length == 0">
+                    <td class="empty" colspan="100%">
+                        Nenhum registro cadastrado.
+                    </td>
                 </tr>
+
+                <tr *ngFor="let row of this.data" [ngClass]="{'table-primary': this.data_selected.id === row.id}" (click)="select_row(row)">
+                    <td *ngFor="let key of this.data_keys" [ngStyle]="{'text-align': key.align}">
+                        {{ key.mask ? (row[key.key] | mask: key.mask) : row[key.key] }}
+                    </td>
+                </tr>
+
             </tbody>
-
         </table>
+    </div>
 
+</div>
+
+<div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-trash-fill"></i> Excluir cliente</h5>
+            </div>
+
+            <div class="modal-body">
+                <span>Deseja excluir o cliente {{ this.data_selected.id }} permanentemente?</span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger me-4" data-bs-dismiss="modal" (click)="delete(this.data_selected.id)">Excluir</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+
+        </div>
     </div>
 </div>
