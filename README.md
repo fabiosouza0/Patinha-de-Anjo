@@ -1,4 +1,4 @@
-# Patinha de Anjo
+# Patinha de Anjo - Front
 
 Este projeto foi gerado a partir do [Angular CLI v13.3.2](https://github.com/angular/angular-cli), utilizando o [Bootstrap v5.1.3](https://getbootstrap.com) e [Bootstrap Icons v1.8.3](https://icons.getbootstrap.com) para customizações visuais 
 
