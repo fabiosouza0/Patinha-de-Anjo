@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -34,9 +35,36 @@ export class ClienteComponent implements OnInit {
 
   data_selected:any = {};
 
+  data_filter:any = {};
+
   constructor(private http:HttpClient, private toastr: ToastrService) {}
 
   ngOnInit(): void {
+    this.get_clientes();
+  }
+
+  open_filter(key:String) {
+    const filter = document.getElementById("filter_" + key);
+    const input = document.getElementById("input_" + key);
+    if (filter && input) {
+      filter.hidden = !filter.hidden;
+      if (!filter.hidden) {
+        input.focus();
+      }
+    }
+  }
+
+  filter(key:string) {
+    const filter = document.getElementById("filter_" + key);
+    const input = <HTMLInputElement>document.getElementById("input_" + key);
+    if (filter && input) {
+      input.blur();
+      if (input.value !== "") {
+        Object(this.data_filter)[key] = input.value;
+      } else if (this.data_filter[key]) {
+        delete this.data_filter[key];
+      }
+    }
     this.get_clientes();
   }
 
@@ -49,12 +77,27 @@ export class ClienteComponent implements OnInit {
   }
 
   get_clientes() {
+
+    var url = 'http://127.0.0.1:8000/api/clientes';
+    if (Object.keys(this.data_filter).length !== 0) {
+      url += '?';
+      Object.keys(this.data_filter).forEach((key:any) => {
+        if (key !== Object.keys(this.data_filter)[0]) {
+          url += '&';
+        }
+        url += key + '=' + this.data_filter[key];
+      });
+    }
+
     this.http
-      .get('http://127.0.0.1:8000/api/clientes')
+      .get(url)
       .subscribe({
         next: (result) => {
           console.log(Object(result).message);
           this.data = Object(result).data;
+          if (Object.keys(this.data_filter).length !== 0) {
+            this.toastr.success('Filtro aplicado.');
+          }
         },
         error: (e) => {
           this.toastr.error('Não foi possível trazer os clientes.');

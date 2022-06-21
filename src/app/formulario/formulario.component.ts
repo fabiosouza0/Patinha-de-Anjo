@@ -110,7 +110,6 @@ export class FormularioComponent implements OnInit {
                 this.form_cliente.controls['cidade'].setValue(Object(result)['localidade']);
                 this.form_cliente.controls['logradouro'].setValue(Object(result)['logradouro']);
                 this.form_cliente.controls['bairro'].setValue(Object(result)['bairro']);
-                // this.form_cliente.controls['cep'].setErrors({'invalid': false});
               } else {
                 this.form_cliente.controls['cep'].setErrors({'invalid': true});
                 this.toastr.error('CEP não encontrado no Banco de Dados.');
